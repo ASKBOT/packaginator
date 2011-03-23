@@ -3,3 +3,5 @@ dev.db*
 *.log
 local_settings.py
 lp-cache
+/docs/_build
+/docs/_build/*
