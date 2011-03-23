@@ -2,6 +2,7 @@
 # Django settings for basic pinax project.
 
 import os.path
+import sys
 import posixpath
 import pinax
 
@@ -149,6 +150,7 @@ PROJECT_APPS = [
     "searchv1",
     "apiv1",
     "feeds",
+    "pypi",
 ]
 
 PREREQ_APPS = [
@@ -256,7 +258,7 @@ COVERAGE_MODULE_EXCLUDES = [
     'tests$', 'settings$', 'urls$', 'locale$',
     'migrations', 'fixtures',
 ]
-COVERAGE_MODULE_EXCLUDES += PREREQ_APPS
+COVERAGE_MODULE_EXCLUDES += PREREQ_APPS + ["djkombu",]
 COVERAGE_REPORT_HTML_OUTPUT_DIR = "coverage"
 
 PACKAGINATOR_HELP_TEXT = {
@@ -294,6 +296,11 @@ SUPPORTED_REPO.extend(["bitbucket", "github"])
 if LAUNCHPAD_ACTIVE:
     SUPPORTED_REPO += ["launchpad"]
 
-import djcelery
-djcelery.setup_loader()
+try:
+    import djcelery
 
+    djcelery.setup_loader()
+except ImportError:
+    # skipping this so we can generate docs
+    # Doing this cause most development doesn't need it.
+    pass
