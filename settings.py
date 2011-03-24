@@ -192,6 +192,12 @@ PREREQ_APPS = [
 
     # Celery task queue:
     'djcelery',
+
+    # Sentry logging
+    'indexer',
+    'paging',
+    'sentry',
+    'sentry.client'
 ]
 
 INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS

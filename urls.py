@@ -47,7 +47,8 @@ urlpatterns = patterns("",
         regex = '^autocomplete/package/$',
         view = package_autocomplete,
         name    = 'package_autocomplete',        
-    )
+    ),
+    url(r"^sentry/", include("sentry.urls")),
     
 )
 

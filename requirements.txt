@@ -41,6 +41,7 @@ coverage==3.4
 django-coverage==1.1.1
 django-flatblocks==0.5.0
 feedparser==5.0.1
+django-sentry==1.6.6
 
 # Celery dependencies:
 celery==2.2.4
