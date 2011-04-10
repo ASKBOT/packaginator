@@ -20,6 +20,7 @@ from package.fields import CreationDateTimeField, ModificationDateTimeField
 from package.repos import github
 from package.pypi import fetch_releases
 from package.repos import get_repo_for_repo_url
+from package.signals import signal_fetch_latest_metadata
 
 repo_url_help_text = settings.PACKAGINATOR_HELP_TEXT['REPO_URL']
 pypi_url_help_text = settings.PACKAGINATOR_HELP_TEXT['PYPI_URL']
@@ -116,11 +117,14 @@ class Package(BaseModel):
         return (x.grid for x in self.gridpackage_set.all())
     
     def repo_name(self):
-        return self.repo_url.replace(self.repo.url + '/','')
+        return re.sub(self.repo.url_regex, '', self.repo_url)
     
     def participant_list(self):
         
         return self.participants.split(',')
+    
+    def get_usage_count(self):
+        return self.usage.count()
     
     def commits_over_52(self):
         now = datetime.now()
@@ -163,6 +167,7 @@ class Package(BaseModel):
             self.pypi_downloads = total_downloads
         
         self.repo.fetch_metadata(self)
+        signal_fetch_latest_metadata.send(sender=self)
         self.save()        
 
     def fetch_commits(self):
