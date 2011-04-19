@@ -62,18 +62,18 @@
     {% else %}
         {% if request.user.is_authenticated and profile.can_add_grid_feature %}        
 
-            <p><img src="{{ STATIC_URL }}img/icon_addlink.gif" />&nbsp;<a href="{% url add_feature grid.slug %}">{% trans "Add a feature to the grid" %}</a></p>
+            <p><img src="{{ STATIC_URL }}img/icon_addlink.gif" alt="{% trans "add feature" %}" />&nbsp;<a href="{% url add_feature grid.slug %}">{% trans "Add a feature to the grid" %}</a></p>
 
-        {% endif %}        
+        {% endif %}
     {% endif %}
 
-    <p></p>
+    <p></p>{% comment %}why empty paragraph?{% endcomment %}
     
     {% if grid_packages.count %}
     
         {% if request.user.is_authenticated and profile.can_add_grid_package %}        
-            <p><img src="{{ STATIC_URL }}img/icon_addlink.gif" />&nbsp;<a href="{% url add_grid_package grid.slug %}">{% trans "Add another package" %}</a></p>
-        {% endif %}        
+            <p><img src="{{ STATIC_URL }}img/icon_addlink.gif" alt="{% trans "add package" %}" />&nbsp;<a href="{% url add_grid_package grid.slug %}">{% trans "Add another package" %}</a></p>
+        {% endif %}
     
         <table id="grid" border="3">
             <thead>
@@ -92,21 +92,18 @@
                                     {{ short|wordwrap:30|linebreaksbr }}
                                 {% endif %}
                             {% endwith %}
-                            
-                            
                         </td>
                     {% endfor %}
-                </tr>                    
+                </tr>
                 <tr class="odd">
                     <td>{% trans "Category" %}</td>
                     {% for grid_package in grid_packages %}
                         <td>{{ grid_package.package.category }}</td>
                     {% endfor %}
-                </tr>                
+                </tr>
                 <tr class="even">
                     <td>{% trans "# Using This" %}</td>
                     {% for grid_package in grid_packages %}
-                    
                         <td>
                             {% with grid_package.package as package %}
                                 <span class="usage-count" id="usage-count-{{ package.id }}">{{ grid_package.usage_count }}</span>                                                        
@@ -124,7 +121,6 @@
                             {% else %}
                                 n/a
                             {% endif %}
-                    
                         </td>
                     {% endfor %}
                 </tr>
@@ -143,7 +139,6 @@
                     {% for grid_package in grid_packages %}
                         <td>{{ grid_package.package.pypi_version|default:"n/a" }}</td>
                     {% endfor %}
-            
                 </tr>
                 <tr class="odd">
                     <td>{% trans "Repo" %}</td>
@@ -227,7 +222,7 @@
                     
     {% else %}
         {% if request.user.is_authenticated and profile.can_add_grid_package %}
-        <p><img src="{{ STATIC_URL }}img/icon_addlink.gif" />&nbsp;<a href="{% url add_grid_package grid.slug %}">{% trans "Add a package to get a grid view" %}</a></p>
+        <p><img src="{{ STATIC_URL }}img/icon_addlink.gif" alt="{% trans "add package" %}" />&nbsp;<a href="{% url add_grid_package grid.slug %}">{% trans "Add a package to get a grid view" %}</a></p>
         {% endif %}
     {% endif %}
         
@@ -294,7 +289,7 @@
                        success:function(data){
                            if (data.objects.length > 0){
                                var href = "http://readthedocs.org/projects/" + slug;
-                               var a = "<a href='" + href + "'>Yes</a>";
+                               var a = "<a href='" + href + "'>{% trans "Yes" %}</a>";
                                ele.html(a);
                                handleRTD(elements);
                            } else {

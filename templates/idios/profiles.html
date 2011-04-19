@@ -41,22 +41,22 @@
                     <td><span class="hide">{{ user.date_joined|date:"YmdHis" }}</span>{{ user.date_joined|timesince }}</td>
                     <td>
                         {% if user.is_staff %}
-                            <img src="{{ STATIC_URL }}img/icon-yes.gif" />                            
+                            <img src="{{ STATIC_URL }}img/icon-yes.gif" alt="{% trans "staff" %}" />                            
                         {% else %}
-                            <img src="{{ STATIC_URL }}img/icon-no.gif" />                            
+                            <img src="{{ STATIC_URL }}img/icon-no.gif" alt="{% trans "registered user" %}" />                            
                         {% endif %}                        
                     </td>
                     {% if request.user.is_staff %}
                         <td>
                             {% if user.is_active %}
-                                <img src="{{ STATIC_URL }}img/icon-yes.gif" />                            
+                                <img src="{{ STATIC_URL }}img/icon-yes.gif" alt="{% trans "active" %}" />
                             {% else %}
-                                <img src="{{ STATIC_URL }}img/icon-no.gif" />                            
+                                <img src="{{ STATIC_URL }}img/icon-no.gif" alt="{% trans "inactive" %}" />
                             {% endif %}
                         </td>
                     {% endif %}
                     <td><a href="https://github.com/{{ user.get_profile.github_url|default:"" }}">{{ user.get_profile.github_url|default:"" }}</a</td>
-                    <td><a href="https://bitbucket.org/{{ user.get_profile.bitbucket_url|default:"" }}">{{ user.get_profile.bitbucket_url|default:"" }}</a</td>                                
+                    <td><a href="https://bitbucket.org/{{ user.get_profile.bitbucket_url|default:"" }}">{{ user.get_profile.bitbucket_url|default:"" }}</a></td>
                 </tr>
             {% endfor %}
         </tbody>
@@ -66,5 +66,5 @@
 
 {% endblock %}
 
-{% block extra_body %}    
+{% block extra_body %}
 {% endblock %}

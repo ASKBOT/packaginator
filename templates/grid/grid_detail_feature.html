@@ -6,7 +6,7 @@
 {% load grid_tags %}
 {% load package_tags %}
 
-{% block head_title %}{{ feature.title|slugify }} {% trans "details" %}{% endblock %}
+{% block head_title %}{% blocktrans with feature_title as feature.title|slugify %}{{feature_title}} details{% endblocktrans %}{% endblock %}
 
 {% block body %}
 
@@ -100,7 +100,7 @@
                         // The deletes are placed in here so there is just one place needed
                         e.preventDefault();
 
-                        if(confirm('Are you sure?')) {
+                        if(confirm('{% trans "Are you sure?" %}')) {
                             window.location = url;
                         }
                     };

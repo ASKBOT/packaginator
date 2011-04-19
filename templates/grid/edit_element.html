@@ -10,7 +10,7 @@
     <h1>{% trans "Edit Element which is related to:" %}</h1>
     
     <p><strong>{% trans "Grid:" %} {{ grid }}</strong></p>
-    <p><strong>{% trans "Package:" %} {{ package }}</strong></p>    
+    <p><strong>{% trans "Package:" %} {{ package }}</strong></p>
     <p><strong>{% trans "Feature:" %} {{ feature.title }}</strong> {{ feature.description}}</p>
     
     
@@ -18,16 +18,15 @@
         {% csrf_token %}
         <fieldset>
             {{ form|as_uni_form }}
-            <div class="form_block">        
+            <div class="form_block">
                 <input class="awesome forestgreen" type="submit" name="edit" value="{% trans "Edit" %}">
                 <a href="{% url grid grid.slug %}">{% trans "cancel" %}</a>
-            </div>            
+            </div>
             
         </fieldset>
     </form>
     
-    <p>
-        
+    <p>{% comment %}why is empty paragraph here?{% endcomment %}
     </p>
 
 {% endblock %}

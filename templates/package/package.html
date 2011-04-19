@@ -57,13 +57,13 @@
                 <tr>
                     <th>{% trans "Version" %}</th>
                     <th>{% trans "License" %}</th>                
-                    <th><img src="{{ STATIC_URL }}img/grayarrow_20x20_clear.png" alt="Downloads" /></th>
+                    <th><img src="{{ STATIC_URL }}img/grayarrow_20x20_clear.png" alt="{% trans "Downloads" %}" /></th>
                 </tr>
                 {% for version in package.version_set.by_version %}
                     {% if not version.hidden %}
                     <tr>
                         <td>{{ version.number }}</td>
-                        <td>{{ version.license|default:"none" }}</td>                    
+                        <td>{{ version.license|default:"none" }}</td>
                         <td>{{ version.downloads|default:"n/a" }}</td>
                     </tr>
                     {% endif %}
@@ -93,12 +93,12 @@
             <tr>
                 <th>{% trans "Repo URL" %}</th>
                 <th>{% trans "Commits" %}</th>
-                <th><img src="{{ STATIC_URL }}img/eye_20x20_clear.png" alt="Watchers" /></th>
-                <th><img src="{{ STATIC_URL }}img/fork_20x20_clear.png" alt="Forks" /></th>
+                <th><img src="{{ STATIC_URL }}img/eye_20x20_clear.png" alt="{% trans "Watchers" %}" /></th>
+                <th><img src="{{ STATIC_URL }}img/fork_20x20_clear.png" alt="{% trans "Forks" %}" /></th>
             </tr>
             <tr>
                 <td><a href="{{ package.repo_url }}">{{ package.repo_url }}</a></td>
-                <td><img src="http://chart.apis.google.com/chart?cht=bvg&chs=105x20&chd=t:{{package|commits_over_52}}&chco=666666&chbh=1,1,1&chds=0,20" /></td>
+                <td><img src="http://chart.apis.google.com/chart?cht=bvg&chs=105x20&chd=t:{{package|commits_over_52}}&chco=666666&chbh=1,1,1&chds=0,20" alt="{% trans "commit chart" %}" /></td>
                 <td>{{ package.repo_watchers|default:"n/a" }}</td>
                 <td>{{ package.repo_forks|default:"n/a" }}</td>
             </tr>
@@ -162,7 +162,7 @@
         pic1=new Image();
         pic1.src="{{ STATIC_URL }}img/progress.gif";
         $('#fetch-cell > a').click(function(){
-            $('#fetch-cell').html('Updating <img src="{{ STATIC_URL }}img/progress.gif">');
+            $('#fetch-cell').html('{% blocktrans %}Updating <img src="{{ STATIC_URL }}img/progress.gif">{% endblocktrans %}');
             })
         });
 </script>
@@ -181,8 +181,8 @@
                 var search_text = '{% url ajax_grid_list %}?q=' + search_text + '&package_id={{ package.id }}';
                 $.get(search_text, function(data) {
                   $('#target').html(data).show("slow");
-                });                
-            });                
+                });
+            });
 
             $("#find-a-grid-form").keypress(function(e) {
                   if (e.which == 13) {
@@ -204,6 +204,6 @@
           }
         });
 
-    });    
-</script>      
-{% endblock %}      
+    });
+</script>
+{% endblock %}
